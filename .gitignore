@@ -1,0 +1,16 @@
+venv
+.venv
+.idea
+__pycache__
+.env
+.env.*
+log
+.vscode
+*.html
+*.xlsx
+*.token
+*.csv
+.DS_Store
+document/_build/*
+document/*.rst
+!document/index.rst
