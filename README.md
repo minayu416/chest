@@ -1,4 +1,4 @@
-# Chest Python Package
+# MythChest Python Package
 
 The chest box for collecting useful python function or objects that can be common used for different projects
 
