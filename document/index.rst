@@ -11,7 +11,7 @@ Welcome to Chest's documentation!
    :caption: Contents:
 
    modules
-   chest
+   mythchest
 
 Indices and tables
 ==================
