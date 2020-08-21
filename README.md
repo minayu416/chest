@@ -9,6 +9,12 @@ The chest box for collecting useful python function or objects that can be commo
 pip install git+https://github.com/minayu416/chest.git
 ```
 
+# upgrade package
+
+```
+pip install --upgrade MythChest
+```
+
 # Generate Sphinx Document
 
 ***Using Sphinx for wring document.***

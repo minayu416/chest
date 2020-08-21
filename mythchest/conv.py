@@ -1,8 +1,12 @@
-import time
-import datetime
+from time import mktime
+from datetime import datetime, timezone, timedelta
 
 
-def datetime_to_iso8601(date):
+ISO_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
+DEFAULT_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+
+def datetime_to_iso8601(date: datetime) -> str:
     """Datetime convert to string format iso8601.
 
     Args:
@@ -12,15 +16,15 @@ def datetime_to_iso8601(date):
         string: Return iso8601 string format
 
     Examples:
-        >>> print(datetime_to_iso8601(datetime.datetime(2020, 8, 7, 14, 13, 13)))
+        >>> print(datetime_to_iso8601(datetime(2020, 8, 7, 14, 13, 13)))
         "2020-08-07T14:30:13+08:00"
 
     """
-    dt = date.replace(tzinfo=datetime.timezone(datetime.timedelta(hours=8)), microsecond=0).isoformat()
+    dt = date.replace(tzinfo=timezone(timedelta(hours=8)), microsecond=0).isoformat()
     return dt
 
 
-def iso8601_to_datetime(date):
+def iso8601_to_datetime(date: str) -> datetime:
     """Iso8601 format convert to datetime
 
     Args:
@@ -34,11 +38,11 @@ def iso8601_to_datetime(date):
         datetime.datetime(2020, 8, 7, 14, 13, 13)
 
     """
-    dt = datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S%z")
+    dt = datetime.strptime(date, ISO_DATETIME_FORMAT)
     return dt
 
 
-def datetime_with_zone_to_unixtime(date):
+def datetime_with_zone_to_unixtime(date: datetime) -> float:
     """Datetime object with time zone convert to unix time
 
     Args:
@@ -48,16 +52,16 @@ def datetime_with_zone_to_unixtime(date):
         float/int: Return unix time stamp format
 
     Examples:
-        >>> tw_tz = datetime.timezone(datetime.timedelta(hours=8))
-        >>> print(datetime_with_zone_to_unixtime(datetime.datetime(2020, 8, 7, 14, 13, 13, tzinfo=tw_tz)))
+        >>> tw_tz = timezone(timedelta(hours=8))
+        >>> print(datetime_with_zone_to_unixtime(datetime(2020, 8, 7, 14, 13, 13, tzinfo=tw_tz)))
         1596970680
 
     """
-    dt = time.mktime(date.timetuple())
+    dt = mktime(date.timetuple())
     return dt
 
 
-def unixtime_to_datetime(unix_time):
+def unixtime_to_datetime(unix_time: float) -> datetime:
     """Unix time convert to datetime
 
     Args:
@@ -71,11 +75,11 @@ def unixtime_to_datetime(unix_time):
         datetime.datetime(2020, 8, 9, 18, 58, 0)
 
     """
-    dt = datetime.datetime.fromtimestamp(unix_time)
+    dt = datetime.fromtimestamp(unix_time)
     return dt
 
 
-def datetime_to_unixtime(date):
+def datetime_to_unixtime(date: datetime) -> float:
     """Datetime convert to unix time
 
     Args:
@@ -85,14 +89,14 @@ def datetime_to_unixtime(date):
         float/int: Return unix time stamp of input date
 
     Examples:
-        >>> print(datetime_to_unixtime(datetime.datetime(2020, 8, 9, 18, 58, 0)))
+        >>> print(datetime_to_unixtime(datetime(2020, 8, 9, 18, 58, 0)))
         1596970680
 
     """
-    return time.mktime(date.timestamp())
+    return mktime(date.timetuple())
 
 
-def datetime_to_string(date, pattern):
+def datetime_to_string(date: datetime, pattern: str = DEFAULT_DATETIME_FORMAT) -> str:
     """Datetime convert to string with specific pattern
 
     Args:
@@ -103,7 +107,7 @@ def datetime_to_string(date, pattern):
         string: Return string format of input datetime object by pattern
 
     Examples:
-        >>> print(datetime_to_string(datetime.datetime(2020, 8, 7, 13, 38), "%Y-%m-%d %H:%M:%S"))
+        >>> print(datetime_to_string(datetime(2020, 8, 7, 13, 38), "%Y-%m-%d %H:%M:%S"))
         "2020-08-07 13:38:20"
 
     """
@@ -111,7 +115,7 @@ def datetime_to_string(date, pattern):
     return dt_day
 
 
-def string_to_datetime(date, pattern):
+def string_to_datetime(date: str, pattern: str = DEFAULT_DATETIME_FORMAT) -> datetime:
     """Datetime convert to string with specific pattern
 
     Args:
@@ -122,10 +126,10 @@ def string_to_datetime(date, pattern):
         datetime object: Return datetime object of input string by pattern
 
     Examples:
-        >>> print(datetime_to_string("2020-08-07 13:38:20", "%Y-%m-%d %H:%M:%S"))
+        >>> print(string_to_datetime("2020-08-07 13:38:20", "%Y-%m-%d %H:%M:%S"))
         datetime.datetime(2020, 8, 7, 13, 38)
 
     """
 
-    dt = datetime.datetime.strptime(date, pattern)
+    dt = datetime.strptime(date, pattern)
     return dt
