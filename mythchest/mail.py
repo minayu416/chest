@@ -9,16 +9,33 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 class MailSender(object):
+    """SMTP Mail Sender
+
+    Implement class method for helping send SMTP mail.
+
+        self.sender (str) = "sender@mail.com" # mail sender
+        self.recipients (list) = ["sample@email.com", "sample@email.com"] # permit multiple recipients.
+        self.web_server (str) = "1x.xx.xxx.xxx" # SMTP web server ip
+        self.msg (object) = MIMEMultipart() # init a multi-content message for permitting compose mail content
+                                     and attached files.
+        self.subject (str) = "" # mail subject
+        self.text (str) = "" # mail content, permit html style.
+
+        self.logger (function) = print # customizing log alarm, if None, just print the log.
+
+    """
 
     def __init__(self):
         self.sender = ""
 
-        # recipients = ["sample@email.com", "sample@email.com"]
         self.recipients = []
         self.web_server = ""
         self.msg = MIMEMultipart()
         self.subject = ""
         self.text = ""
+
+        # can customize logger alarm.
+        self.logger = print
 
     # TODO if necessary, developing CC
     def new_msg(self):
@@ -41,7 +58,7 @@ class MailSender(object):
         return self
 
     def send(self):
-        # TODO logger: f"Message length is {len(self.msg.as_string())}"
+        self.logger(f"Mail length is {len(self.msg.as_string())}")
 
         server = smtplib.SMTP(self.web_server)
         server.set_debuglevel(1)
