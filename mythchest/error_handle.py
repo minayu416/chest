@@ -2,7 +2,18 @@ import functools
 
 
 def exception_handle(function):
-    # TODO write comment and document
+    """Exception handle decorator
+
+    Description:
+        A exception/ error handler that can be decorated on function, 
+        automatic process raise exception, error and output uniform form.
+
+    Example:
+        >>> @exception_handle
+        >>> def hello_world():
+        >>>     print("hello world!")
+
+    """
     @functools.wraps(function)
     def wrapper(*args, **kwargs):
         try:
