@@ -30,7 +30,6 @@ class MQTTPublisher(object):
     """
 
     __mqtt_conn = None
-    __instance = None
 
     def __init__(self, cfg: MQTTCfg = None):
         if cfg is None:
